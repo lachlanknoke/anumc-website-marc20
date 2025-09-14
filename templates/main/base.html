@@ -12,38 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}ANUMC{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    {% block extra_head %}
-    <!-- Custom styles to approximate the original ANUMC colour scheme -->
-    <style>
-        /* Soft off‑white background similar to the Drupal site */
-        body {
-            background-color: #f9f5e9;
-        }
-        /* Dark green navigation bar reminiscent of the original site */
-        .navbar.is-primary {
-            background-color: #2e8b57;
-        }
-        /* White text for nav items */
-        .navbar.is-primary .navbar-item,
-        .navbar.is-primary .navbar-link {
-            color: #ffffff;
-        }
-        /* Slightly darker background on hover */
-        .navbar.is-primary .navbar-link:hover,
-        .navbar.is-primary .navbar-item:hover {
-            background-color: #246746;
-            color: #ffffff;
-        }
-        /* Footer shares the same background as body for continuity */
-        footer.footer {
-            background-color: #f9f5e9;
-        }
-    </style>
-    {% endblock %}
+    <!-- Load custom ANUMC styles -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/anumc.css' %}">
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     <!-- Navigation bar -->
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
                 <strong>ANUMC</strong>

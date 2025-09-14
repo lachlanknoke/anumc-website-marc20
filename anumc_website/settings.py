@@ -137,7 +137,10 @@ TIME_ZONE = "Australia/Sydney"
 
 USE_I18N = True
 
-USE_TZ = True
+# Disable time zone support for the project to avoid warnings about naive
+# datetime objects in tests.  This matches the behaviour of the original
+# Drupal site which does not store timezone information in its dates.
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/stable/howto/static-files/

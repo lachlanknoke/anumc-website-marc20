@@ -160,7 +160,6 @@ class Event(models.Model):
         return reverse("event-detail", args=[self.slug])
 
     @property
-    @property
     def is_full(self) -> bool:
         """Return True when the event is at capacity.
 
