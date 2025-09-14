@@ -33,16 +33,16 @@
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">About the club</a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="#">Benefits for members</a>
-                        <a class="navbar-item" href="#">Activities</a>
-                        <a class="navbar-item" href="#">History and hall of fame</a>
-                        <a class="navbar-item" href="#">Club Ethics</a>
+                        <a class="navbar-item" href="{% url 'benefits' %}">Benefits for members</a>
+                        <a class="navbar-item" href="{% url 'activities' %}">Activities</a>
+                        <a class="navbar-item" href="{% url 'history' %}">History and hall of fame</a>
+                        <a class="navbar-item" href="{% url 'ethics' %}">Club Ethics</a>
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">Trips & Weekly Events</a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="#">Trip Calendar</a>
+                        <a class="navbar-item" href="/">Trip Calendar</a>
                         <a class="navbar-item" href="#">Participating in a trip</a>
                         <a class="navbar-item" href="#">Leading a trip</a>
                         <a class="navbar-item" href="#">Trip Archive</a>
@@ -50,19 +50,27 @@
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Organise a Trip!</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'event-create' %}">Regular Trip</a>
+                        <a class="navbar-item" href="#">Create a Belay Course</a>
+                        <a class="navbar-item" href="#">Social Event / Meeting</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">Gear Store</a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="#">About Us</a>
-                        <a class="navbar-item" href="#">Location and Hours</a>
-                        <a class="navbar-item" href="#">Rates and Rules</a>
+                        <a class="navbar-item" href="{% url 'location-hours' %}">Location and Hours</a>
+                        <a class="navbar-item" href="{% url 'rates-rules' %}">Rates and Rules</a>
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">Contact Us</a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="#">Signing Up</a>
-                        <a class="navbar-item" href="#">FAQs</a>
-                        <a class="navbar-item" href="#">Member Protection Information</a>
+                        <a class="navbar-item" href="{% url 'signing-up' %}">Signing Up</a>
+                        <a class="navbar-item" href="{% url 'faq' %}">FAQs</a>
+                        <a class="navbar-item" href="{% url 'member-protection' %}">Member Protection Information</a>
                     </div>
                 </div>
             </div>

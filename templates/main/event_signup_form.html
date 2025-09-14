@@ -1,0 +1,46 @@
+{% extends "main/base.html" %}
+
+{% block title %}Sign up | {{ view.get_event.title }} | ANUMC{% endblock %}
+
+{% block content %}
+<h1 class="title">Sign up for {{ view.get_event.title }}</h1>
+<p class="subtitle">Fill in your details to register your interest for this trip.</p>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="field">
+        <label class="label" for="id_full_name">Full name</label>
+        <div class="control">
+            {{ form.full_name }}
+        </div>
+        {% for error in form.full_name.errors %}
+        <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="field">
+        <label class="label" for="id_email">Email</label>
+        <div class="control">
+            {{ form.email }}
+        </div>
+        {% for error in form.email.errors %}
+        <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="field">
+        <label class="label" for="id_experience">Experience / Notes</label>
+        <div class="control">
+            {{ form.experience }}
+        </div>
+        {% for error in form.experience.errors %}
+        <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+        <p class="help">You can include any prior experience or other information that
+            might be useful for the trip leader.</p>
+    </div>
+    <div class="field">
+        <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

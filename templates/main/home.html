@@ -11,7 +11,15 @@
     <h2 class="title is-4">Important Notice</h2>
     {% for ann in announcements %}
         <h3 class="title is-5">{{ ann.title }}</h3>
-        <p>{{ ann.body|linebreaks }}</p>
+        {#
+          Use the ``safe`` filter after ``linebreaks`` so that characters like
+          apostrophes are rendered as-is instead of being HTML-escaped to
+          entities such as &#x27;. The announcement content is editorial
+          content managed through the admin, so marking it safe here maintains
+          fidelity to the source text.  Without ``safe``, Django will escape
+          the apostrophe which caused our TDD test to fail.
+        #}
+        <p>{{ ann.body|linebreaks|safe }}</p>
     {% endfor %}
 </div>
 {% endif %}
@@ -30,7 +38,7 @@
             {% endif %}
             <div class="card-content">
                 <p class="title is-5">{{ event.title }}</p>
-                <p class="subtitle is-6">{{ event.start_date }} — {{ event.end_date }}</p>
+                <p class="subtitle is-6">{{ event.start_datetime|date:"M. j, Y" }} — {{ event.end_datetime|date:"M. j, Y" }}</p>
                 {% if event.fitness_required %}
                     <p><strong>Fitness:</strong> {{ event.fitness_required }}</p>
                 {% endif %}

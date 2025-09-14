@@ -4,46 +4,41 @@
 
 {% block content %}
 <h1 class="title">{{ event.title }}</h1>
-<p class="subtitle">{{ event.start_date }} — {{ event.end_date }}</p>
 
-{% if event.image %}
-<figure class="image is-16by9">
-    <img src="{{ event.image.url }}" alt="{{ event.title }}">
-</figure>
-{% endif %}
+<div class="columns">
+    <div class="column is-two-thirds">
+        {% if event.image %}
+        <figure class="image is-16by9">
+            <img src="{{ event.image.url }}" alt="{{ event.title }}">
+        </figure>
+        {% endif %}
 
-<div class="content">
-    {{ event.description|linebreaks }}
+        <div class="content">
+            {{ event.description|linebreaks }}
+        </div>
+    </div>
+    <div class="column is-one-third">
+        <div class="box">
+            <p><strong>Trip category:</strong> {{ event.get_category_display }}</p>
+            <p><strong>Date and Time:</strong> {{ event.start_datetime|date:"d/m/Y - H:i" }} — {{ event.end_datetime|date:"d/m/Y - H:i" }}</p>
+            <p><strong>Difficulty level:</strong> {{ event.get_difficulty_level_display }}</p>
+            {% if event.estimated_costs %}<p><strong>Estimated Costs:</strong> {{ event.estimated_costs }}</p>{% endif %}
+            {% if event.meeting_datetime %}<p><strong>Pre Trip meeting date:</strong> {{ event.meeting_datetime|date:"d/m/Y - H:i" }}</p>{% endif %}
+            {% if event.meeting_location %}<p><strong>Pre Trip location:</strong> {{ event.meeting_location }}</p>{% endif %}
+            {% if event.trip_location %}<p><strong>Trip location:</strong> {{ event.trip_location }}</p>{% endif %}
+            {% if event.contact_details %}<p><strong>Contact Details:</strong> {{ event.contact_details }}</p>{% endif %}
+            {% if event.requested_information %}<p><strong>Requested Info:</strong> {{ event.requested_information }}</p>{% endif %}
+            {% if event.trip_capacity and event.trip_capacity != -1 and event.spots_total > 0 %}
+            <p><strong>Capacity:</strong> {{ event.spots_available }} / {{ event.spots_total }} spots left</p>
+            {% endif %}
+        </div>
+    </div>
 </div>
 
-<table class="table is-fullwidth">
-    <tbody>
-        <tr>
-            <th>Category</th>
-            <td>{{ event.get_category_display }}</td>
-        </tr>
-        {% if event.fitness_required %}
-        <tr>
-            <th>Fitness required</th>
-            <td>{{ event.fitness_required }}</td>
-        </tr>
-        {% endif %}
-        {% if event.experience_required %}
-        <tr>
-            <th>Experience required</th>
-            <td>{{ event.experience_required }}</td>
-        </tr>
-        {% endif %}
-        {% if event.spots_total > 0 %}
-        <tr>
-            <th>Capacity</th>
-            <td>{{ event.spots_available }} / {{ event.spots_total }} spots left</td>
-        </tr>
-        {% endif %}
-    </tbody>
-</table>
-
-<p>
-    <a class="button is-link" href="/">Back to events</a>
-</p>
+<div class="buttons">
+    <a class="button is-light" href="/">Back to events</a>
+    {% if event.spots_total == 0 or not event.is_full %}
+        <a class="button is-link" href="{% url 'event-signup' event.slug %}">Sign up</a>
+    {% endif %}
+</div>
 {% endblock %}

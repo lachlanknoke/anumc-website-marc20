@@ -1,0 +1,36 @@
+{% extends "main/base.html" %}
+
+{% block title %}Organise a Trip | ANUMC{% endblock %}
+
+{% block content %}
+<h1 class="title">Create a New Trip</h1>
+<p class="subtitle">Use this form to organise a regular trip.  Fields roughly
+correspond to the options available on the existing ANUMC Drupal site.</p>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="columns is-multiline">
+        {% for field in form %}
+        <div class="column is-half">
+            <div class="field">
+                <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="control">
+                    {{ field }}
+                </div>
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text }}</p>
+                {% endif %}
+                {% for error in field.errors %}
+                <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="field">
+        <div class="control">
+            <button type="submit" class="button is-link">Save</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
