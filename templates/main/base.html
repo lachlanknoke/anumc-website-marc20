@@ -1,0 +1,115 @@
+{#
+    Base template for ANUMC website.
+    This template sets up a simple navigation bar and includes blocks
+    for child templates to override.  Styling is intentionally kept
+    minimal to allow quick prototyping; real deployment should
+    incorporate a CSS framework or custom stylesheets.
+#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}ANUMC{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <strong>ANUMC</strong>
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navbarBasic" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/">Home</a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">About the club</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="#">Benefits for members</a>
+                        <a class="navbar-item" href="#">Activities</a>
+                        <a class="navbar-item" href="#">History and hall of fame</a>
+                        <a class="navbar-item" href="#">Club Ethics</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Trips & Weekly Events</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="#">Trip Calendar</a>
+                        <a class="navbar-item" href="#">Participating in a trip</a>
+                        <a class="navbar-item" href="#">Leading a trip</a>
+                        <a class="navbar-item" href="#">Trip Archive</a>
+                        <a class="navbar-item" href="#">Weekly events</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Gear Store</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="#">About Us</a>
+                        <a class="navbar-item" href="#">Location and Hours</a>
+                        <a class="navbar-item" href="#">Rates and Rules</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Contact Us</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="#">Signing Up</a>
+                        <a class="navbar-item" href="#">FAQs</a>
+                        <a class="navbar-item" href="#">Member Protection Information</a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-light" href="#">Log in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content area -->
+    <section class="section">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                ANUMC acknowledges the Traditional Owners of this land, Ngunnawal and
+                Ngambri peoples, who are caretakers of this Country on which this club and the ANU
+                reside and operate on. We pay our respects to Country, to custodians, Elders,
+                knowledge-holders and their kin, and we acknowledge all Aboriginal and Torres Strait
+                Islander peoples of Australia as having strong and continuing connections to land,
+                culture, and Country.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+    // Bulma navbar toggle for mobile
+    document.addEventListener('DOMContentLoaded', () => {
+      const burgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+      burgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const menu = document.getElementById(target);
+          el.classList.toggle('is-active');
+          menu.classList.toggle('is-active');
+        });
+      });
+    });
+    </script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

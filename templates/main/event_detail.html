@@ -1,0 +1,49 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ event.title }} | ANUMC{% endblock %}
+
+{% block content %}
+<h1 class="title">{{ event.title }}</h1>
+<p class="subtitle">{{ event.start_date }} — {{ event.end_date }}</p>
+
+{% if event.image %}
+<figure class="image is-16by9">
+    <img src="{{ event.image.url }}" alt="{{ event.title }}">
+</figure>
+{% endif %}
+
+<div class="content">
+    {{ event.description|linebreaks }}
+</div>
+
+<table class="table is-fullwidth">
+    <tbody>
+        <tr>
+            <th>Category</th>
+            <td>{{ event.get_category_display }}</td>
+        </tr>
+        {% if event.fitness_required %}
+        <tr>
+            <th>Fitness required</th>
+            <td>{{ event.fitness_required }}</td>
+        </tr>
+        {% endif %}
+        {% if event.experience_required %}
+        <tr>
+            <th>Experience required</th>
+            <td>{{ event.experience_required }}</td>
+        </tr>
+        {% endif %}
+        {% if event.spots_total > 0 %}
+        <tr>
+            <th>Capacity</th>
+            <td>{{ event.spots_available }} / {{ event.spots_total }} spots left</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<p>
+    <a class="button is-link" href="/">Back to events</a>
+</p>
+{% endblock %}
