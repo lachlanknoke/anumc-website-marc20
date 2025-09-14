@@ -19,7 +19,7 @@
           fidelity to the source text.  Without ``safe``, Django will escape
           the apostrophe which caused our TDD test to fail.
         #}
-        <p>{{ ann.body|linebreaks|safe }}</p>
+        <div>{{ ann.body|linebreaks|safe }}</div>
     {% endfor %}
 </div>
 {% endif %}
