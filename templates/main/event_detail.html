@@ -41,4 +41,15 @@
         <a class="button is-link" href="{% url 'event-signup' event.slug %}">Sign up</a>
     {% endif %}
 </div>
+
+{% if show_signups %}
+<h2 class="title is-5">Participants</h2>
+<ul>
+    {% for signup in signups %}
+    <li>{{ signup.full_name }} ({{ signup.email }}){% if signup.experience %} – {{ signup.experience }}{% endif %}</li>
+    {% empty %}
+    <li>No participants yet.</li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

@@ -32,4 +32,6 @@ urlpatterns = [
     path("contact/faq/", TemplateView.as_view(template_name="main/faq.html"), name="faq"),
     path("contact/signing-up/", TemplateView.as_view(template_name="main/signing_up.html"), name="signing-up"),
     path("contact/member-protection/", TemplateView.as_view(template_name="main/member_protection.html"), name="member-protection"),
+    # User registration
+    path("accounts/signup/", views.SignUpView.as_view(), name="signup"),
 ]

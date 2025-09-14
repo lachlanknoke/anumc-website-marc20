@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Announcement(models.Model):
@@ -145,6 +147,15 @@ class Event(models.Model):
     spots_available = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # The user who created this event.  Allows trip leaders to manage their own events.
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="events_created",
+    )
+
     class Meta:
         # Order upcoming events by their start date/time.  Use the
         # start_datetime field added below instead of the removed
@@ -188,9 +199,40 @@ class EventSignup(models.Model):
     experience = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # Optional link to the user account that created this signup.  When
+    # participants sign up while logged in, this field is populated.
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="event_signups",
+    )
+
     class Meta:
         unique_together = ("event", "email")
         ordering = ["created_at"]
 
     def __str__(self) -> str:
         return f"{self.full_name} – {self.event.title}"
+
+
+class UserProfile(models.Model):
+    """Additional information for a user.
+
+    This model extends Django's built-in User model with fields relevant to the
+    ANUMC club such as emergency contact details, membership expiry and
+    sign-up dates.  A profile is automatically created when a new user is
+    registered (see signals.py).
+    """
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    full_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    emergency_contact = models.CharField(max_length=200, blank=True)
+    membership_signup_date = models.DateField(auto_now_add=True)
+    membership_expiry_date = models.DateField(null=True, blank=True)
+    membership_refresh_date = models.DateField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.full_name
